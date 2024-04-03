@@ -1,6 +1,13 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
 import static java.lang.Character.isLowerCase;
 import static java.lang.Character.isUpperCase;
 import static java.lang.Character.toLowerCase;
+import static java.lang.System.in;
 
 public class ROT13  {
     private char startChar;
@@ -56,16 +63,30 @@ public class ROT13  {
 
     public static String rotate(String s, Character c) {
         int index = s.indexOf(c);
-
         // If the character c is not found, return the original string s
         if (index == -1) {
             return s;
         }
-
         // Rotate the string until the specified character c is at the beginning
         String rotated = s.substring(index) + s.substring(0, index);
 
         return rotated;
+    }
+
+    public void readFile() throws IOException {
+        ROT13 rot = new ROT13();
+        File file = new File("/Users/matthew/Projects/SimpleCrypt/sonnet18.txt");
+        Scanner sc = new Scanner(file);
+        while(sc.hasNextLine()) {
+            rot.crypt(sc.toString());
+            System.out.println(rot.crypt(sc.toString()));
+        }
+
+    }
+
+    public static void main(String[] args) throws IOException {
+        ROT13 rot = new ROT13();
+        rot.readFile();
     }
 
 }
