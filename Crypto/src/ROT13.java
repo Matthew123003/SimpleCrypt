@@ -55,25 +55,17 @@ public class ROT13  {
     }
 
     public static String rotate(String s, Character c) {
-        StringBuilder result = new StringBuilder();
+        int index = s.indexOf(c);
 
-        // Determine the rotation amount based on the position of character c
-        int rotationAmount = Character.toUpperCase(c) - 'A';
-
-        for (char ch : s.toCharArray()) {
-            if (Character.isLetter(ch)) {
-                char base = Character.isUpperCase(ch) ? 'A' : 'a';
-                result.append((char) ((ch - base + rotationAmount) % 26 + base));
-            } else {
-                result.append(ch);
-            }
-
-            // Break the loop when we encounter the character c
-            if (Character.toUpperCase(ch) == Character.toUpperCase(c)) {
-            }
+        // If the character c is not found, return the original string s
+        if (index == -1) {
+            return s;
         }
 
-        return result.toString();
+        // Rotate the string until the specified character c is at the beginning
+        String rotated = s.substring(index) + s.substring(0, index);
+
+        return rotated;
     }
 
 }
