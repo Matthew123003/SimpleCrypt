@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 import static java.lang.Character.isLowerCase;
@@ -73,20 +75,20 @@ public class ROT13  {
         return rotated;
     }
 
-    public void readFile() throws IOException {
-        ROT13 rot = new ROT13();
-        File file = new File("/Users/matthew/Projects/SimpleCrypt/sonnet18.txt");
-        Scanner sc = new Scanner(file);
-        while(sc.hasNextLine()) {
-            rot.crypt(sc.toString());
-            System.out.println(rot.crypt(sc.toString()));
-        }
-
+    public String readFile(String fileName) throws IOException {
+        String data = "";
+        data = new String(Files.readAllBytes(Paths.get(fileName)));
+        return data;
     }
 
     public static void main(String[] args) throws IOException {
         ROT13 rot = new ROT13();
-        rot.readFile();
+        String data = rot.readFile("/Users/matthew/Projects/SimpleCrypt/sonnet18.txt");
+        String data1 = rot.encrypt(data);
+        String data2 = rot.decrypt(data1);
+        System.out.println(data1);
+        System.out.println(data2);
+
     }
 
 }
