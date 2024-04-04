@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -81,13 +78,30 @@ public class ROT13  {
         return data;
     }
 
+    public void writeEncryptedFile(String text) throws IOException {
+        FileWriter fw = new FileWriter("/Users/matthew/Projects/SimpleCrypt/sonnetEncrypted.txt");
+        fw.write(text);
+        fw.close();
+    }
+
+    public void writeDecryptedFile(String text) throws IOException {
+        FileWriter fw = new FileWriter("/Users/matthew/Projects/SimpleCrypt/sonnetDecrypted.txt");
+        fw.write(text);
+        fw.close();
+    }
+
+
     public static void main(String[] args) throws IOException {
         ROT13 rot = new ROT13();
         String data = rot.readFile("/Users/matthew/Projects/SimpleCrypt/sonnet18.txt");
         String data1 = rot.encrypt(data);
-        String data2 = rot.decrypt(data1);
-        System.out.println(data1);
-        System.out.println(data2);
+        rot.writeEncryptedFile(data1);
+        String data2 = rot.readFile("/Users/matthew/Projects/SimpleCrypt/sonnetEncrypted.txt");
+        String data3 = rot.decrypt(data2);
+        rot.writeDecryptedFile(data3);
+
+        //System.out.println(data1);
+        //System.out.println(data2);
 
     }
 
